@@ -3,7 +3,7 @@ html {
 }
 
 #game {
-    margin: 0 auto;
+    margin: 5% auto 0 auto;
     width: 250px;
     height: 250px;
     background-color: grey;
