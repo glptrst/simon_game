@@ -28,7 +28,7 @@ window.onload = function() {
     
     var redButton =  document.getElementById('redButton');
     redButton.addEventListener('mouseup', function() {
-	if (isUserTurn) {
+	if (isGameOn && isUserTurn) {
 	    var btn = this;
 	    redAudio.play();
 	    btn.style['background-color']= '#F40000';
@@ -40,7 +40,7 @@ window.onload = function() {
 
     var yellowButton =  document.getElementById('yellowButton');
     yellowButton.addEventListener('mouseup', function() {
-	if (isUserTurn) {
+	if (isGameOn && isUserTurn) {
 	    var btn = this;
 	    yellowAudio.play();
 	    btn.style['background-color']= '#FFF028';
@@ -52,7 +52,7 @@ window.onload = function() {
 
     var greenButton =  document.getElementById('greenButton');
     greenButton.addEventListener('mouseup', function() {
-	if (isUserTurn) {
+	if (isGameOn && isUserTurn) {
 	    var btn = this;
 	    greenAudio.play();
 	    btn.style['background-color']= '#31FF2D';
@@ -64,7 +64,7 @@ window.onload = function() {
 
     var blueButton =  document.getElementById('blueButton');
     blueButton.addEventListener('mouseup', function() {
-	if (isUserTurn) {
+	if (isGameOn && isUserTurn) {
 	    var btn = this;
 	    blueAudio.play();
 	    btn.style['background-color']= '#2861FF';
@@ -74,4 +74,17 @@ window.onload = function() {
 	}
     });
 
+    document.getElementsByTagName('input')[0].addEventListener('click', toggleGameOnOff);
+
+    function toggleGameOnOff() {
+	if (isGameOn === true) {
+	    isGameOn = false;
+	    console.log('is false');
+	}
+	else {
+	    isGameOn = true;
+	    console.log('is true!');
+	}
+    }
+    
 };
