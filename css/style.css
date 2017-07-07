@@ -3,7 +3,7 @@ html {
 }
 
 #game {
-    margin: 5% auto 0 auto;
+    margin: 2% auto 0 auto;
     width: 250px;
     height: 250px;
     background-color: grey;
@@ -21,20 +21,24 @@ html {
     float: left;
 }
 
-#redButton {
+#btn1 {
     background-color: #CC0000;
 }
 
-#yellowButton {
+#btn2 {
     background-color: #E5D600;
 }
 
-#greenButton {
+#btn3 {
     background-color: #029E00;
 }
 
-#blueButton {
+#btn4 {
     background-color: #003ADB;
+}
+
+#start {
+    background-color: #42f4c5;
 }
 
 /***********************************************************************************/
