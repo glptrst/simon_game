@@ -2,6 +2,7 @@ window.onload = function() {
 
     // random game sequence 
     var sequence = randomSequence();
+    var counter = 10;
     
     var buttons= [
     	{
@@ -11,10 +12,12 @@ window.onload = function() {
 	    color: '#CC0000',
 	    lightColor: '#F40000',
 	    activate: function() {
-		this.node.setAttribute('style', 'background-color: ' + this.lightColor);
-	    },
-	    deactivate: function() {
-		this.node.setAttribute('style', 'background-color: ' + this.color);
+		var btn = this;
+		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
+		btn.audio.play();
+		setTimeout(function() {
+		    btn.node.setAttribute('style', 'background-color: ' + this.color)
+		}, 500);
 	    }
     	},
     	{
@@ -24,12 +27,14 @@ window.onload = function() {
 	    color: '#E5D600',
 	    lightColor: '#FFF028',
 	    activate: function() {
-		this.node.setAttribute('style', 'background-color: ' + this.lightColor);
-	    },
-	    deactivate: function () {
-		this.node.setAttribute('style', 'background-color: ' + this.color);
+		var btn = this;
+		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
+		btn.audio.play();
+		setTimeout(function() {
+		    btn.node.setAttribute('style', 'background-color: ' + this.color)
+		}, 500);
 	    }
-    	},
+	},
     	{
     	    id: 'btn2',
 	    node: document.getElementById('btn2'),
@@ -37,12 +42,14 @@ window.onload = function() {
 	    color: '#029E00',
 	    lightColor: '#31FF2D',
 	    activate: function() {
-		this.node.setAttribute('style', 'background-color: ' + this.lightColor);
-	    },
-	    deactivate: function () {
-		this.node.setAttribute('style', 'background-color: ' + this.color);
+		var btn = this;
+		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
+		btn.audio.play();
+		setTimeout(function() {
+		    btn.node.setAttribute('style', 'background-color: ' + this.color)
+		}, 500);
 	    }
-    	},
+	},
     	{
     	    id: 'btn3',
 	    node: document.getElementById('btn3'),
@@ -50,14 +57,24 @@ window.onload = function() {
 	    color: '#003ADB',
 	    lightColor: '#2861FF',
 	    activate: function() {
-		this.node.setAttribute('style', 'background-color: ' + this.lightColor);
-	    },
-	    deactivate: function () {
-		this.node.setAttribute('style', 'background-color: ' + this.color);
+		var btn = this;
+		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
+		btn.audio.play();
+		setTimeout(function() {
+		    btn.node.setAttribute('style', 'background-color: ' + this.color)
+		}, 500);
 	    }
-    	}
+	}
     ];
-
+    
+    var i = 0;
+    var activateSequence = setInterval(function() {
+	buttons[sequence[i]].activate();
+    	i++;
+    	if (i >= counter)
+    	    clearInterval(activateSequence);
+    }, 500);
+    
     // return array of random sequence of 20 buttons
     function randomSequence() {
 	var arr = [];
