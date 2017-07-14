@@ -2,8 +2,12 @@ window.onload = function() {
 
     // random game sequence 
     var sequence = randomSequence();
-    var counter = 10;
+
+    var sequenceTest = [2,2,2,2];
     
+    var counter = 10;
+
+    // Game's buttons
     var buttons= [
     	{
     	    id: 'btn0',
@@ -66,15 +70,20 @@ window.onload = function() {
 	    }
 	}
     ];
-    
-    var i = 0;
-    var activateSequence = setInterval(function() {
-	buttons[sequence[i]].activate();
-    	i++;
-    	if (i >= counter)
-    	    clearInterval(activateSequence);
-    }, 500);
-    
+
+    showSequence(sequence, 20);
+
+    // show sequence of buttons till n
+    function showSequence(seq, n) {
+	var i = 0;
+	var activateSequence = setInterval(function() {
+	    buttons[seq[i]].activate();
+    	    i++;
+    	    if (i >= n)
+    		clearInterval(activateSequence);
+	}, 1000);
+    }
+
     // return array of random sequence of 20 buttons
     function randomSequence() {
 	var arr = [];
