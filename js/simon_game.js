@@ -3,9 +3,7 @@ window.onload = function() {
     // random game sequence 
     var sequence = randomSequence();
 
-    var sequenceTest = [2,2,2,2];
-    
-    var counter = 10;
+    var counter = 1;
 
     // Game's buttons
     var buttons= [
@@ -71,19 +69,31 @@ window.onload = function() {
 	}
     ];
 
-    showSequence(sequence, 20);
+    showSequence(sequence, counter);
 
     // show sequence of buttons till n
     function showSequence(seq, n) {
-	var i = 0;
+	var i = 1;
 	var activateSequence = setInterval(function() {
 	    buttons[seq[i]].activate();
     	    i++;
-    	    if (i >= n)
+	    if (i = n) {
+		// stop showing sequence
     		clearInterval(activateSequence);
+		userPlay(i);
+	    }
 	}, 1000);
     }
 
+    // check for n moves of the player
+    function userPlay(n) {
+	// check for user moves
+	TODO
+	
+	//update counter
+	counter++;
+    }
+    
     // return array of random sequence of 20 buttons
     function randomSequence() {
 	var arr = [];
@@ -97,78 +107,20 @@ window.onload = function() {
     function randomRange(myMin, myMax) {
     	return Math.floor(Math.random() * (myMax - myMin + 1)) + myMin; // Change this line
     }
-
-
     
+    buttons[0].node.addEventListener('mouseup', function(){
+	buttons[0].activate();
+    });
 
+    buttons[1].node.addEventListener('mouseup', function(){
+	buttons[1].activate();
+    });
 
-    
-    
-    
-    // var redAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
-    // var yellowAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
-    // var greenAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
-    // var blueAudio = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
+    buttons[2].node.addEventListener('mouseup', function(){
+	buttons[2].activate();
+    });
 
-    // var redButton =  document.getElementById('redButton');
-    // redButton.addEventListener('mouseup', function() {
-    // 	if (isGameOn && isUserTurn) {
-    // 	    var btn = this;
-    // 	    redAudio.play();
-    // 	    btn.style['background-color']= '#F40000';
-    // 	    setTimeout(function() {
-    // 		btn.style['background-color'] = '#CC0000';
-    // 	    }, 500);
-    // 	}
-    // });
-
-    // var yellowButton =  document.getElementById('yellowButton');
-    // yellowButton.addEventListener('mouseup', function() {
-    // 	if (isGameOn && isUserTurn) {
-    // 	    var btn = this;
-    // 	    yellowAudio.play();
-    // 	    btn.style['background-color']= '#FFF028';
-    // 	    setTimeout(function() {
-    // 		btn.style['background-color'] = '#E5D600';
-    // 	    }, 500);
-    // 	}
-    // });
-
-    // var greenButton =  document.getElementById('greenButton');
-    // greenButton.addEventListener('mouseup', function() {
-    // 	if (isGameOn && isUserTurn) {
-    // 	    var btn = this;
-    // 	    greenAudio.play();
-    // 	    btn.style['background-color']= '#31FF2D';
-    // 	    setTimeout(function() {
-    // 		btn.style['background-color'] = '#029E00';
-    // 	    }, 700);
-    // 	}
-    // });
-
-    // var blueButton =  document.getElementById('blueButton');
-    // blueButton.addEventListener('mouseup', function() {
-    // 	if (isGameOn && isUserTurn) {
-    // 	    var btn = this;
-    // 	    blueAudio.play();
-    // 	    btn.style['background-color']= '#2861FF';
-    // 	    setTimeout(function() {
-    // 		btn.style['background-color'] = '#003ADB';
-    // 	    }, 700);
-    // 	}
-    // });
-
-    // document.getElementsByTagName('input')[0].addEventListener('click', toggleGameOnOff);
-
-    // function toggleGameOnOff() {
-    // 	if (isGameOn === true) {
-    // 	    isGameOn = false;
-    // 	    console.log('is false');
-    // 	}
-    // 	else {
-    // 	    isGameOn = true;
-    // 	    console.log('is true!');
-    // 	}
-    // }
-
+    buttons[3].node.addEventListener('mouseup', function(){
+	buttons[3].activate();
+    });
 };
