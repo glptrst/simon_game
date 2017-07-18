@@ -3,7 +3,10 @@ window.onload = function() {
     // random game sequence 
     var sequence = randomSequence();
 
+    var isUserTurn = false;
+
     var counter = 1;
+    var userMovesIndex = 0;
 
     // Game's buttons
     var buttons= [
@@ -18,7 +21,7 @@ window.onload = function() {
 		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
 		btn.audio.play();
 		setTimeout(function() {
-		    btn.node.setAttribute('style', 'background-color: ' + this.color)
+		    btn.node.setAttribute('style', 'background-color: ' + this.color);
 		}, 500);
 	    }
     	},
@@ -33,7 +36,7 @@ window.onload = function() {
 		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
 		btn.audio.play();
 		setTimeout(function() {
-		    btn.node.setAttribute('style', 'background-color: ' + this.color)
+		    btn.node.setAttribute('style', 'background-color: ' + this.color);
 		}, 500);
 	    }
 	},
@@ -48,7 +51,7 @@ window.onload = function() {
 		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
 		btn.audio.play();
 		setTimeout(function() {
-		    btn.node.setAttribute('style', 'background-color: ' + this.color)
+		    btn.node.setAttribute('style', 'background-color: ' + this.color);
 		}, 500);
 	    }
 	},
@@ -63,7 +66,7 @@ window.onload = function() {
 		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
 		btn.audio.play();
 		setTimeout(function() {
-		    btn.node.setAttribute('style', 'background-color: ' + this.color)
+		    btn.node.setAttribute('style', 'background-color: ' + this.color);
 		}, 500);
 	    }
 	}
@@ -77,23 +80,27 @@ window.onload = function() {
 	var activateSequence = setInterval(function() {
 	    buttons[seq[i]].activate();
     	    i++;
-	    if (i = n) {
+	    if (i > n) {
 		// stop showing sequence
     		clearInterval(activateSequence);
-		userPlay(i);
 	    }
 	}, 1000);
+
+	isUserTurn = true;
     }
 
-    // check for n moves of the player
-    function userPlay(n) {
-	// check for user moves
-	TODO
-	
-	//update counter
-	counter++;
+    //check for user move
+    //***********************************TODO***********************************
+    function checkMove() {
+	console.log('helloworld');
+	if (userMovesIndex === counter){
+	    console.log('now');	    
+	    counter++;
+	    userMovesIndex = 0;
+	    showSequence(sequence, counter);
+	}
     }
-    
+        
     // return array of random sequence of 20 buttons
     function randomSequence() {
 	var arr = [];
@@ -109,18 +116,42 @@ window.onload = function() {
     }
     
     buttons[0].node.addEventListener('mouseup', function(){
-	buttons[0].activate();
+	if (isUserTurn) {
+	    buttons[0].activate();
+	    
+	    userMovesIndex++;
+	    
+	    checkMove(0, counter);
+	}
     });
 
     buttons[1].node.addEventListener('mouseup', function(){
-	buttons[1].activate();
+	if (isUserTurn) {
+	    buttons[1].activate();
+	    
+	    userMovesIndex++;
+	    
+	    checkMove(1, counter);
+	}
     });
 
     buttons[2].node.addEventListener('mouseup', function(){
-	buttons[2].activate();
+	if (isUserTurn) {
+	    buttons[2].activate();
+
+	    userMovesIndex++;
+	    
+	    checkMove(2, counter);
+	}
     });
 
     buttons[3].node.addEventListener('mouseup', function(){
-	buttons[3].activate();
+	if (isUserTurn) {
+	    buttons[3].activate();
+
+	    userMovesIndex++;
+	    
+	    checkMove(3, counter);
+	}
     });
 };
