@@ -74,7 +74,7 @@ window.onload = function() {
 
     showSequence(sequence, counter);
 
-    // show sequence of buttons till n
+    // Show sequence of buttons till n and set isUserTurn to true.
     function showSequence(seq, n) {
 	var i = 1;
 	var activateSequence = setInterval(function() {
@@ -94,8 +94,12 @@ window.onload = function() {
     function checkMove() {
 	console.log('helloworld');
 	if (userMovesIndex === counter){
-	    console.log('now');	    
+	    console.log('now');
+	    // update counter
 	    counter++;
+	    // show updated counter on screen
+	    showUpdateCounter();
+	    
 	    userMovesIndex = 0;
 	    showSequence(sequence, counter);
 	}
@@ -124,6 +128,11 @@ window.onload = function() {
 	    checkMove(0, counter);
 	}
     });
+
+    function showUpdateCounter() {
+	var el = document.getElementById('counter');
+	el.firstChild.nodeValue = String(counter);
+    }
 
     buttons[1].node.addEventListener('mouseup', function(){
 	if (isUserTurn) {
