@@ -67,14 +67,15 @@ window.onload = function() {
     var sequence = randomSequence();
 
     var gameIsOn = false;
+    var strict = false;
     var isUserTurn = false;
 
-    var counter = 1;
-    var userMovesIndex = 0;
+    var counter = 0;
+    var userMoveIndex = 0;
 
     document.getElementById('start').addEventListener('click', function() {
 	if (gameIsOn)
-	    showSequence(sequence, counter);
+	    showSequence(sequence, counter, true);
     });
 
     document.getElementsByTagName('input')[0].addEventListener('click', function() {
@@ -85,47 +86,47 @@ window.onload = function() {
     });
 
     //check for user move
-    //***********************************TODO***********************************
-    function checkMove(answer, indexAnswer) {
-
-	
+    function checkMove(answer) {
+	// if user answer is correct
+	if (answer === sequence[userMoveIndex-1]) {
+	    console.log('correct');
+	    // if userMoveIndex is the same as counter
+	    if (userMoveIndex === counter) {
+	        // if counter is 20
+		if (counter === 20) {
+	            // game has been won. Game Over.
+		    console.log('game won.');
+		} else { // if counter is less than 20
+		    // set userMoveIndex to 0
+		    userMoveIndex = 0;
+		    // set isUserTurn to false
+		    isUserTurn = false;
+		    // show sequence
+		    setTimeout(function(){
+			showSequence(sequence, counter, true);
+		    }, 2000);
+		}
+	    } else {// if userMoveIndex is not the same as counter
+	    	// wait for other answers
+	    }
+	} else { // if user answer is not correct
+	    // if we are in strict mode
+	    if (strict){
+	        // reset everything. Game Over.
+	    } else { // if we are not in strict mode
+		// show the same sequence till the same point
+	    }
+	}
     }
-            
-    buttons[0].node.addEventListener('mouseup', function(){
-	if (gameIsOn && isUserTurn) {
-	    buttons[0].activate();
-	    userMovesIndex++;
-	    checkMove(0, userMovesIndex);
-	}
-    });
-
-    buttons[1].node.addEventListener('mouseup', function(){
-	if (gameIsOn && isUserTurn) {
-	    buttons[1].activate();
-	    userMovesIndex++;
-	    checkMove(1, userMovesIndex);
-	}
-    });
-
-    buttons[2].node.addEventListener('mouseup', function(){
-	if (gameIsOn && isUserTurn) {
-	    buttons[2].activate();
-	    userMovesIndex++;
-	    checkMove(2, userMovesIndex);
-	}
-    });
-
-    buttons[3].node.addEventListener('mouseup', function(){
-	if (gameIsOn && isUserTurn) {
-	    buttons[3].activate();
-	    userMovesIndex++;
-	    checkMove(3, userMovesIndex);
-	}
-    });
 
     // Show sequence of buttons till n and set isUserTurn to true.
-    function showSequence(seq, n) {
-	var i = 1;
+    function showSequence(seq, n, updateCounter) {
+	if (updateCounter) {
+	    counter++;
+	    showUpdateCounter();
+	}
+	
+	var i = 0;
 	var activateSequence = setInterval(function() {
 	    buttons[seq[i]].activate();
     	    i++;
@@ -137,6 +138,38 @@ window.onload = function() {
 
 	isUserTurn = true;
     }
+            
+    buttons[0].node.addEventListener('mouseup', function(){
+	if (gameIsOn && isUserTurn) {
+	    buttons[0].activate();
+	    userMoveIndex++;
+	    checkMove(0, userMoveIndex);
+	}
+    });
+
+    buttons[1].node.addEventListener('mouseup', function(){
+	if (gameIsOn && isUserTurn) {
+	    buttons[1].activate();
+	    userMoveIndex++;
+	    checkMove(1, userMoveIndex);
+	}
+    });
+
+    buttons[2].node.addEventListener('mouseup', function(){
+	if (gameIsOn && isUserTurn) {
+	    buttons[2].activate();
+	    userMoveIndex++;
+	    checkMove(2, userMoveIndex);
+	}
+    });
+
+    buttons[3].node.addEventListener('mouseup', function(){
+	if (gameIsOn && isUserTurn) {
+	    buttons[3].activate();
+	    userMoveIndex++;
+	    checkMove(3, userMoveIndex);
+	}
+    });
 
     // return array of random sequence of 20 buttons
     function randomSequence() {
