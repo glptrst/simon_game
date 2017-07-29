@@ -74,7 +74,7 @@ window.onload = function() {
     var userMoveIndex = 0;
 
     document.getElementById('start').addEventListener('click', function() {
-	if (gameIsOn)
+	if (gameIsOn && counter === 0)
 	    showSequence(sequence, counter, true);
     });
 
@@ -110,18 +110,24 @@ window.onload = function() {
 	    	// wait for other answers
 	    }
 	} else { // if user answer is not correct
+	    console.log('Wrong!');
 	    // if we are in strict mode
 	    if (strict){
 	        // reset everything. Game Over.
 	    } else { // if we are not in strict mode
+		userMoveIndex = 0;
 		// show the same sequence till the same point
+		setTimeout(function(){
+		    showSequence(sequence, counter, false);
+		}, 2000);
 	    }
 	}
     }
 
-    // Show sequence of buttons till n and set isUserTurn to true.
-    function showSequence(seq, n, updateCounter) {
+    // Show sequence of buttons till limit and set isUserTurn to true.
+    function showSequence(seq, limit, updateCounter) {
 	if (updateCounter) {
+	    limit++;
 	    counter++;
 	    showUpdateCounter();
 	}
@@ -130,7 +136,7 @@ window.onload = function() {
 	var activateSequence = setInterval(function() {
 	    buttons[seq[i]].activate();
     	    i++;
-	    if (i > n) {
+	    if (i >= limit) {
 		// stop showing sequence
     		clearInterval(activateSequence);
 	    }
