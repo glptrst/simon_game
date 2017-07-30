@@ -115,7 +115,10 @@ window.onload = function() {
 	    if (strict){
 	        // reset everything. Game Over.
 	    } else { // if we are not in strict mode
+		// set userMoveIndex to 0
 		userMoveIndex = 0;
+		// set isUserTurn to false
+		isUserTurn = false;
 		// show the same sequence till the same point
 		setTimeout(function(){
 		    showSequence(sequence, counter, false);
