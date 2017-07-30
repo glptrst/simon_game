@@ -67,7 +67,7 @@ window.onload = function() {
     var sequence = randomSequence();
 
     var gameIsOn = false;
-    var strict = false;
+    var strict = true;
     var isUserTurn = false;
 
     var counter = 0;
@@ -114,6 +114,15 @@ window.onload = function() {
 	    // if we are in strict mode
 	    if (strict){
 	        // reset everything. Game Over.
+		console.log('strict!');
+		// reset everything and start showing new sequence
+		counter = 0;
+		userMoveIndex = 0;
+		isUserTurn = false;
+		sequence = randomSequence();
+		setTimeout(function(){
+		    showSequence(sequence, counter, true);
+		}, 2000);
 	    } else { // if we are not in strict mode
 		// set userMoveIndex to 0
 		userMoveIndex = 0;
@@ -142,10 +151,12 @@ window.onload = function() {
 	    if (i >= limit) {
 		// stop showing sequence
     		clearInterval(activateSequence);
+		// enable user to click on buttons
+		isUserTurn = true;
 	    }
 	}, 1000);
 
-	isUserTurn = true;
+
     }
             
     buttons[0].node.addEventListener('mouseup', function(){
