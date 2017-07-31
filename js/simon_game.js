@@ -67,22 +67,32 @@ window.onload = function() {
     var sequence = randomSequence();
 
     var gameIsOn = false;
-    var strict = true;
+    var strict = false;
     var isUserTurn = false;
 
     var counter = 0;
     var userMoveIndex = 0;
 
+    // start game with start button is clicked
     document.getElementById('start').addEventListener('click', function() {
 	if (gameIsOn && counter === 0)
 	    showSequence(sequence, counter, true);
     });
 
+    // toggle gameIsOn by clicking the switch
     document.getElementsByTagName('input')[0].addEventListener('click', function() {
 	if (gameIsOn === true)
 	    gameIsOn = false;
 	else
 	    gameIsOn = true;
+    });
+
+    // toggle strict by clicking the switch
+    document.getElementsByTagName('input')[1].addEventListener('click', function() {
+	if (strict === true)
+	    strict = false;
+	else
+	    strict = true;
     });
 
     //check for user move
