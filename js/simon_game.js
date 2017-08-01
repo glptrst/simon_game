@@ -121,6 +121,7 @@ window.onload = function() {
 	    }
 	} else { // if user answer is not correct
 	    console.log('Wrong!');
+	    notifyUser('Wrong!');
 	    // if we are in strict mode
 	    if (strict){
 	        // reset everything. Game Over.
@@ -165,8 +166,6 @@ window.onload = function() {
 		isUserTurn = true;
 	    }
 	}, 1000);
-
-
     }
             
     buttons[0].node.addEventListener('mouseup', function(){
@@ -219,5 +218,15 @@ window.onload = function() {
     function showUpdateCounter() {
 	var el = document.getElementById('counter');
 	el.firstChild.nodeValue = String(counter);
+    }
+
+    // Notify user with message on the screen for a couple of sec
+    function notifyUser(message) {
+	var el = document.getElementById('notify');
+	var msg = document.createTextNode(message);
+	el.appendChild(msg);
+	setTimeout(function(){
+	    el.firstChild.remove();
+	},2000);
     }
 };
