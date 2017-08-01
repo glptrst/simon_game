@@ -73,10 +73,22 @@ window.onload = function() {
     var counter = 0;
     var userMoveIndex = 0;
 
+    // store the ID of the interval used to show the game sequence
+    var intervalID;
+
     // start game with start button is clicked
     document.getElementById('start').addEventListener('click', function() {
-	if (gameIsOn && counter === 0)
+	if (gameIsOn && counter === 0) { // start the game
 	    showSequence(sequence, counter, true);
+	} else if (gameIsOn && counter !== 0) { // restart the game
+	    clearInterval(intervalID);
+	    counter = 0;
+	    showUpdateCounter();
+	    userMoveIndex = 0;
+	    isUserTurn = false;
+	    sequence = randomSequence();
+	    showSequence(sequence, counter, true);
+	}
     });
 
     // toggle gameIsOn by clicking the switch
@@ -166,6 +178,9 @@ window.onload = function() {
 		isUserTurn = true;
 	    }
 	}, 1000);
+
+	// store inteval id in the global scope (in case we have to stop to restart the game)
+	intervalID = activateSequence;
     }
             
     buttons[0].node.addEventListener('mouseup', function(){
