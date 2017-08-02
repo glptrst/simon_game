@@ -87,7 +87,9 @@ window.onload = function() {
 	    userMoveIndex = 0;
 	    isUserTurn = false;
 	    sequence = randomSequence();
-	    showSequence(sequence, counter, true);
+	    setTimeout(function(){
+		showSequence(sequence, counter, true);
+	    }, 1000);
 	}
     });
 
@@ -118,6 +120,16 @@ window.onload = function() {
 		if (counter === 20) {
 	            // game has been won. Game Over.
 		    console.log('game won.');
+		    notifyUser('You won the game!');
+		    // start game over
+		    counter = 0;
+		    showUpdateCounter();
+		    userMoveIndex = 0;
+		    isUserTurn = false;
+		    sequence = randomSequence();
+		    setTimeout(function(){
+			showSequence(sequence, counter, true);
+		    },2000);
 		} else { // if counter is less than 20
 		    // set userMoveIndex to 0
 		    userMoveIndex = 0;
