@@ -1,4 +1,7 @@
 window.onload = function() {
+    // TODO
+    // should I use a constructor for buttons?
+    
     // Game's buttons
     var buttons= [
     	{
@@ -93,12 +96,15 @@ window.onload = function() {
 	}
     });
 
-    // toggle gameIsOn by clicking the switch
+    // toggle gameIsOn by clicking the switch Off/On
     document.getElementsByTagName('input')[0].addEventListener('click', function() {
 	if (gameIsOn === true)
 	    gameIsOn = false;
 	else
 	    gameIsOn = true;
+	
+	// TODO
+	// If the games was on all data should be reset
     });
 
     // toggle strict by clicking the switch
