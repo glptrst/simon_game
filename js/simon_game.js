@@ -1,70 +1,28 @@
+"use strict";
 window.onload = function() {
-    // TODO
-    // should I use a constructor for buttons?
-    
-    // Game's buttons
-    var buttons= [
-    	{
-    	    id: 'btn0',
-	    node: document.getElementById('btn0'),
-    	    audio: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
-	    color: '#CC0000',
-	    lightColor: '#F40000',
-	    activate: function() {
-		var btn = this;
-		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
-		btn.audio.play();
-		setTimeout(function() {
-		    btn.node.setAttribute('style', 'background-color: ' + this.color);
-		}, 500);
-	    }
-    	},
-    	{
-    	    id: 'btn1',
-	    node: document.getElementById('btn1'),
-    	    audio: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
-	    color: '#E5D600',
-	    lightColor: '#FFF028',
-	    activate: function() {
-		var btn = this;
-		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
-		btn.audio.play();
-		setTimeout(function() {
-		    btn.node.setAttribute('style', 'background-color: ' + this.color);
-		}, 500);
-	    }
-	},
-    	{
-    	    id: 'btn2',
-	    node: document.getElementById('btn2'),
-    	    audio :new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
-	    color: '#029E00',
-	    lightColor: '#31FF2D',
-	    activate: function() {
-		var btn = this;
-		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
-		btn.audio.play();
-		setTimeout(function() {
-		    btn.node.setAttribute('style', 'background-color: ' + this.color);
-		}, 500);
-	    }
-	},
-    	{
-    	    id: 'btn3',
-	    node: document.getElementById('btn3'),
-    	    audio: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3'),
-	    color: '#003ADB',
-	    lightColor: '#2861FF',
-	    activate: function() {
-		var btn = this;
-		btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
-		btn.audio.play();
-		setTimeout(function() {
-		    btn.node.setAttribute('style', 'background-color: ' + this.color);
-		}, 500);
-	    }
-	}
-    ];
+
+    function Button (id, node, audio, color, lightColor) {
+	this.id = id;
+	this.node = node;
+	this.audio = audio;
+	this.color = color;
+	this.lightColor = lightColor;
+	this.activate = function () {
+    	    var btn = this;
+    	    btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
+    	    btn.audio.play();
+    	    setTimeout(function() {
+    		btn.node.setAttribute('style', 'background-color: ' + this.color);
+    	    }, 500);
+	};
+    }
+
+    var btn0 = new Button ('btn0', document.getElementById('btn0'), new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'), '#CC0000', '#F40000');
+    var btn1 = new Button ('btn1', document.getElementById('btn1'), new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'), '#E5D600', '#FFF028');
+    var btn2 = new Button ('btn2', document.getElementById('btn2'), new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'), '#029E00', '#31FF2D');
+    var btn3 = new Button ('btn3', document.getElementById('btn3'), new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3'), '#003ADB', '#2861FF');
+
+    var buttons = [btn0, btn1, btn2, btn3];
 
     // random game sequence 
     var sequence = randomSequence();
