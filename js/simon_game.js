@@ -1,5 +1,31 @@
 "use strict";
 window.onload = function() {
+    var buttons = [
+	new Button ('btn0', new Audio('./audio/simonSound1.mp3'), '#CC0000', '#F40000'),
+	new Button ('btn1', new Audio('./audio/simonSound2.mp3'), '#E5D600', '#FFF028'),
+	new Button ('btn2', new Audio('./audio/simonSound3.mp3'), '#029E00', '#31FF2D'),
+	new Button ('btn3', new Audio('./audio/simonSound4.mp3'), '#003ADB', '#2861FF')
+    ];
+    // Something's wrong with the audio with Chrome on Linux.
+    // Should I use AudioContext() ?
+    // var context = new window.AudioContext();
+    // var osc = context.createOscillator();
+    // osc.frequency.value = 440;
+    // osc.connect(context.destination);
+    // osc.start(0);
+    
+    // Random game sequence 
+    var sequence = randomSequence();
+
+    var gameIsOn = false;
+    var strict = false;
+    var isUserTurn = false;
+
+    var counter = 0;
+    var userMoveIndex = 0;
+
+    // store the ID of the interval used to show the game sequence
+    var intervalID;
 
     // Constructor for buttons
     function Button (id, audio, color, lightColor) {
@@ -17,27 +43,6 @@ window.onload = function() {
     	    }, 500);
     	};
     }
-
-    // Create buttons
-    var btn0 = new Button ('btn0', new Audio('./audio/simonSound1.mp3'), '#CC0000', '#F40000');
-    var btn1 = new Button ('btn1', new Audio('./audio/simonSound2.mp3'), '#E5D600', '#FFF028');
-    var btn2 = new Button ('btn2', new Audio('./audio/simonSound3.mp3'), '#029E00', '#31FF2D');
-    var btn3 = new Button ('btn3', new Audio('./audio/simonSound4.mp3'), '#003ADB', '#2861FF');
-
-    var buttons = [btn0, btn1, btn2, btn3];
-
-    // random game sequence 
-    var sequence = randomSequence();
-
-    var gameIsOn = false;
-    var strict = false;
-    var isUserTurn = false;
-
-    var counter = 0;
-    var userMoveIndex = 0;
-
-    // store the ID of the interval used to show the game sequence
-    var intervalID;
 
     // start game with start button is clicked
     document.getElementById('start').addEventListener('click', function() {
@@ -138,7 +143,8 @@ window.onload = function() {
     }
 
     // Show sequence of buttons till limit and set isUserTurn to true.
-    function showSequence(seq, limit, updateCounter) {
+    // 
+    function showSequence(sequence, limit, updateCounter) {
 	if (updateCounter) {
 	    limit++;
 	    counter++;
@@ -147,8 +153,8 @@ window.onload = function() {
 	
 	var i = 0;
 	var activateSequence = setInterval(function() {
-	    buttons[seq[i]].activate();
-    	    i++;
+	    buttons[sequence[i]].activate();
+	    i++;
 	    if (i >= limit) {
 		// stop showing sequence
     		clearInterval(activateSequence);
@@ -161,39 +167,39 @@ window.onload = function() {
 	intervalID = activateSequence;
     }
             
-    btn0.node.addEventListener('mouseup', function(){
+    buttons[0].node.addEventListener('mouseup', function(){
 	if (gameIsOn && isUserTurn) {
-	    btn0.activate();
+	    buttons[0].activate();
 	    userMoveIndex++;
 	    checkMove(0, userMoveIndex);
 	}
     });
 
-    btn1.node.addEventListener('mouseup', function(){
+    buttons[1].node.addEventListener('mouseup', function(){
 	if (gameIsOn && isUserTurn) {
-	    btn1.activate();
+	    buttons[1].activate();
 	    userMoveIndex++;
 	    checkMove(1, userMoveIndex);
 	}
     });
 
-    btn2.node.addEventListener('mouseup', function(){
+    buttons[2].node.addEventListener('mouseup', function(){
 	if (gameIsOn && isUserTurn) {
-	    btn2.activate();
+	    buttons[2].activate();
 	    userMoveIndex++;
 	    checkMove(2, userMoveIndex);
 	}
     });
 
-    btn3.node.addEventListener('mouseup', function(){
+    buttons[3].node.addEventListener('mouseup', function(){
 	if (gameIsOn && isUserTurn) {
-	    btn3.activate();
+	    buttons[3].activate();
 	    userMoveIndex++;
 	    checkMove(3, userMoveIndex);
 	}
     });
 
-    // return array of random sequence of 20 buttons
+    // Return array of random sequence of 20 buttons
     function randomSequence() {
 	var arr = [];
 	for (var i = 0; i < 20; i ++) {
@@ -202,12 +208,12 @@ window.onload = function() {
 	return arr;
     }
     
-    // generate random number between a range
+    // Generate random number between a range
     function randomRange(myMin, myMax) {
     	return Math.floor(Math.random() * (myMax - myMin + 1)) + myMin; // Change this line
     }
 
-    //show current counter value on the page
+    // Show current counter value on the page
     function showUpdateCounter() {
 	var el = document.getElementById('counter');
 	el.firstChild.nodeValue = String(counter);
