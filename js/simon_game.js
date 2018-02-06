@@ -1,26 +1,28 @@
 "use strict";
 window.onload = function() {
 
-    function Button (id, node, audio, color, lightColor) {
-	this.id = id;
-	this.node = node;
-	this.audio = audio;
-	this.color = color;
-	this.lightColor = lightColor;
-	this.activate = function () {
+    // Constructor for buttons
+    function Button (id, audio, color, lightColor) {
+    	this.id = id;
+    	this.node = document.getElementById(this.id);
+    	this.audio = audio;
+    	this.color = color;
+    	this.lightColor = lightColor;
+    	this.activate = function () {
     	    var btn = this;
     	    btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
     	    btn.audio.play();
     	    setTimeout(function() {
     		btn.node.setAttribute('style', 'background-color: ' + this.color);
     	    }, 500);
-	};
+    	};
     }
 
-    var btn0 = new Button ('btn0', document.getElementById('btn0'), new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'), '#CC0000', '#F40000');
-    var btn1 = new Button ('btn1', document.getElementById('btn1'), new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'), '#E5D600', '#FFF028');
-    var btn2 = new Button ('btn2', document.getElementById('btn2'), new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'), '#029E00', '#31FF2D');
-    var btn3 = new Button ('btn3', document.getElementById('btn3'), new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3'), '#003ADB', '#2861FF');
+    // Create buttons
+    var btn0 = new Button ('btn0', new Audio('./audio/simonSound1.mp3'), '#CC0000', '#F40000');
+    var btn1 = new Button ('btn1', new Audio('./audio/simonSound2.mp3'), '#E5D600', '#FFF028');
+    var btn2 = new Button ('btn2', new Audio('./audio/simonSound3.mp3'), '#029E00', '#31FF2D');
+    var btn3 = new Button ('btn3', new Audio('./audio/simonSound4.mp3'), '#003ADB', '#2861FF');
 
     var buttons = [btn0, btn1, btn2, btn3];
 
@@ -159,33 +161,33 @@ window.onload = function() {
 	intervalID = activateSequence;
     }
             
-    buttons[0].node.addEventListener('mouseup', function(){
+    btn0.node.addEventListener('mouseup', function(){
 	if (gameIsOn && isUserTurn) {
-	    buttons[0].activate();
+	    btn0.activate();
 	    userMoveIndex++;
 	    checkMove(0, userMoveIndex);
 	}
     });
 
-    buttons[1].node.addEventListener('mouseup', function(){
+    btn1.node.addEventListener('mouseup', function(){
 	if (gameIsOn && isUserTurn) {
-	    buttons[1].activate();
+	    btn1.activate();
 	    userMoveIndex++;
 	    checkMove(1, userMoveIndex);
 	}
     });
 
-    buttons[2].node.addEventListener('mouseup', function(){
+    btn2.node.addEventListener('mouseup', function(){
 	if (gameIsOn && isUserTurn) {
-	    buttons[2].activate();
+	    btn2.activate();
 	    userMoveIndex++;
 	    checkMove(2, userMoveIndex);
 	}
     });
 
-    buttons[3].node.addEventListener('mouseup', function(){
+    btn3.node.addEventListener('mouseup', function(){
 	if (gameIsOn && isUserTurn) {
-	    buttons[3].activate();
+	    btn3.activate();
 	    userMoveIndex++;
 	    checkMove(3, userMoveIndex);
 	}
