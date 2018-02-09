@@ -1,5 +1,6 @@
 "use strict";
 window.onload = function() {
+    // The four buttons to play the game
     var buttons = [
 	new Button ('btn0', new Audio('./audio/simonSound1.mp3'), '#CC0000', '#F40000'),
 	new Button ('btn1', new Audio('./audio/simonSound2.mp3'), '#E5D600', '#FFF028'),
@@ -14,37 +15,22 @@ window.onload = function() {
     // osc.connect(context.destination);
     // osc.start(0);
     
-    // Random game sequence 
+    // Store random game sequence
     var sequence = randomSequence();
-
+    // Flag for checking whether game is on or off
     var gameIsOn = false;
+    // Flag for checking whether strict mode activated or not
     var strict = false;
+    // Flag for checking whether is the turn of the user or not
     var isUserTurn = false;
-
+    // Game counter
     var counter = 0;
+    // Actual user moves counter
     var userMoveIndex = 0;
-
-    // store the ID of the interval used to show the game sequence
+    // Store the ID of the interval used to show the game sequence
     var intervalID;
 
-    // Constructor for buttons
-    function Button (id, audio, color, lightColor) {
-    	this.id = id;
-    	this.node = document.getElementById(this.id);
-    	this.audio = audio;
-    	this.color = color;
-    	this.lightColor = lightColor;
-    	this.activate = function () {
-    	    var btn = this;
-    	    btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
-    	    btn.audio.play();
-    	    setTimeout(function() {
-    		btn.node.setAttribute('style', 'background-color: ' + this.color);
-    	    }, 500);
-    	};
-    }
-
-    // start game with start button is clicked
+    // Start game with start button is clicked
     document.getElementById('start').addEventListener('click', function() {
 	if (gameIsOn && counter === 0) { // start the game
 	    showSequence(sequence, counter, true);
@@ -61,18 +47,22 @@ window.onload = function() {
 	}
     });
 
-    // toggle gameIsOn by clicking the switch Off/On
+    // Toggle gameIsOn by clicking the switch Off/On
     document.getElementsByTagName('input')[0].addEventListener('click', function() {
-	if (gameIsOn === true)
+	if (gameIsOn === true) {
 	    gameIsOn = false;
-	else
+	    // Reset all values
+	    clearInterval(intervalID);
+	    counter = 0;
+	    showUpdateCounter();
+	    userMoveIndex = 0;
+	    isUserTurn = false;
+	    sequence = randomSequence();
+	} else 
 	    gameIsOn = true;
-	
-	// TODO
-	// If the games was on all data should be reset
     });
 
-    // toggle strict by clicking the switch
+    // Toggle strict by clicking the switch
     document.getElementsByTagName('input')[1].addEventListener('click', function() {
 	if (strict === true)
 	    strict = false;
@@ -80,7 +70,7 @@ window.onload = function() {
 	    strict = true;
     });
 
-    //check for user move
+    // Check for user move
     function checkMove(answer) {
 	// if user answer is correct
 	if (answer === sequence[userMoveIndex-1]) {
@@ -143,7 +133,7 @@ window.onload = function() {
     }
 
     // Show sequence of buttons till limit and set isUserTurn to true.
-    // 
+    // If a truthy third parameter is given then also update counter and limit
     function showSequence(sequence, limit, updateCounter) {
 	if (updateCounter) {
 	    limit++;
@@ -163,7 +153,7 @@ window.onload = function() {
 	    }
 	}, 1000);
 
-	// store inteval id in the global scope (in case we have to stop to restart the game)
+	// Store inteval id in the outer scope (in case we have to stop to restart the game)
 	intervalID = activateSequence;
     }
             
@@ -198,6 +188,23 @@ window.onload = function() {
 	    checkMove(3, userMoveIndex);
 	}
     });
+
+    // Constructor for buttons
+    function Button (id, audio, color, lightColor) {
+    	this.id = id;
+    	this.node = document.getElementById(this.id);
+    	this.audio = audio;
+    	this.color = color;
+    	this.lightColor = lightColor;
+    	this.activate = function () {
+    	    var btn = this;
+    	    btn.node.setAttribute('style', 'background-color: ' + this.lightColor);
+    	    btn.audio.play();
+    	    setTimeout(function() {
+    		btn.node.setAttribute('style', 'background-color: ' + this.color);
+    	    }, 500);
+    	};
+    }
 
     // Return array of random sequence of 20 buttons
     function randomSequence() {
